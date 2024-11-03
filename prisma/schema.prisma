@@ -7,13 +7,106 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
 }
 
+model Person {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Required fields
+    firstName          String
+    lastName           String
+    mononym            Boolean
+    preferredFirstName String
+
+    // Optional fields
+    pronouns    String
+    gender      Gender?
+    dateOfBirth String?
+
+    phone           String
+    personalEmail   String?
+    universityEmail String?
+    officialEmail   String?
+    address         String
+
+    // formAnswers FormAnswer[]
+}
+
+enum Gender {
+    MALE
+    FEMALE
+    GENDER_DIVERSE
+    PREFER_NOT_TO_SAY
+}
+
+// model Form {
+//     id        Int      @id @default(autoincrement())
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
+
+//     name String
+//     type FormType
+
+//     questions FormQuestion[]
+// }
+
+// enum FormType {
+//     APPLICATION
+//     INFORMATION
+// }
+
+// model FormQuestion {
+//     id        Int      @id @default(autoincrement())
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
+
+//     question    String
+//     description String
+//     type        QuestionType
+//     options     String[]
+
+//     form   Form @relation(fields: [formId], references: [id])
+//     formId Int
+
+//     answers FormAnswer[]
+// }
+
+// enum QuestionType {
+//     SHORT_TEXT
+//     PARAGRAPH
+//     RADIO
+//     CHECKBOX
+//     DROPDOWN
+//     DATE
+//     TIME
+//     PERSON_PRONOUNS
+//     PERSON_GENDER
+//     PERSON_DATE_OF_BIRTH
+//     PERSON_PHONE
+//     PERSON_PERSONAL_EMAIL
+//     PERSON_UNIVERSITY_EMAIL
+//     PERSON_OFFICIAL_EMAIL
+//     PERSON_ADDRESS
+// }
+
+// model FormAnswer {
+//     id        Int      @id @default(autoincrement())
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
+
+//     answer String
+
+//     person   Person @relation(fields: [personId], references: [id])
+//     personId Int
+
+//     question   FormQuestion @relation(fields: [questionId], references: [id])
+//     questionId Int
+// }
+
+// Test stuff
 model Post {
     id        Int      @id @default(autoincrement())
     name      String
@@ -33,12 +126,12 @@ model Account {
     type                     String
     provider                 String
     providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
+    refresh_token            String?
+    access_token             String?
     expires_at               Int?
     token_type               String?
     scope                    String?
-    id_token                 String? // @db.Text
+    id_token                 String?
     session_state            String?
     user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
     refresh_token_expires_in Int?
