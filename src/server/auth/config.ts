@@ -38,6 +38,7 @@ export const authConfig = {
       clientSecret: env.AUTH_GOOGLE_SECRET,
     }),
   ],
+  trustHost: true,
   adapter: PrismaAdapter(db),
   callbacks: {
     session: ({ session, user }) => ({
