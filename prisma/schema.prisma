@@ -17,20 +17,19 @@ model Person {
 
     // Required fields
     firstName          String
-    lastName           String
-    mononym            Boolean
-    preferredFirstName String
+    preferredFirstName String?
+    lastName           String?
 
     // Optional fields
-    pronouns    String
     gender      Gender?
+    pronouns    String?
     dateOfBirth String?
 
-    phone           String
+    phone           String?
     personalEmail   String?
     universityEmail String?
-    officialEmail   String?
-    address         String
+    companyEmail    String?
+    address         String?
 
     // formAnswers FormAnswer[]
 }

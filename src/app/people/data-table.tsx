@@ -25,6 +25,7 @@ import { DataTablePagination } from "../_components/data-table-pagination";
 import { DataTableViewOptions } from "../_components/data-table-view-options";
 import { useState } from "react";
 import { Input } from "../_components/ui/input";
+import { AddPerson } from "./add-person";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -72,6 +73,7 @@ export function DataTable<TData, TValue>({
         }
         className="max-w-sm"
       />
+      <AddPerson />
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -114,11 +116,6 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-
-      <div className="text-muted-foreground flex-1 text-sm">
-        {table.getFilteredSelectedRowModel().rows.length} of{" "}
-        {table.getFilteredRowModel().rows.length} row(s) selected.
-      </div>
 
       <DataTablePagination table={table} />
     </div>

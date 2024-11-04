@@ -89,9 +89,9 @@ export const columns: ColumnDef<RouterOutputs["person"]["all"][number]>[] = [
     ),
   },
   {
-    accessorKey: "officialEmail",
+    accessorKey: "companyEmail",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Official Email" />
+      <DataTableColumnHeader column={column} title="Company Email" />
     ),
   },
   {

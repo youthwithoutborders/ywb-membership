@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { personCreateSchema } from "~/validators/person";
 
 export const personRouter = createTRPCRouter({
   all: protectedProcedure.query(({ ctx }) => {
@@ -8,38 +9,20 @@ export const personRouter = createTRPCRouter({
   }),
 
   create: protectedProcedure
-    .input(
-      z.object({
-        firstName: z.string(),
-        lastName: z.string(),
-        mononym: z.boolean(),
-        preferredFirstName: z.string(),
-        pronouns: z.string(),
-        gender: z
-          .enum(["MALE", "FEMALE", "GENDER_DIVERSE", "PREFER_NOT_TO_SAY"])
-          .optional(),
-        dateOfBirth: z.string().date().optional(),
-        phone: z.string(),
-        personalEmail: z.string().email().optional(),
-        universityEmail: z.string().email().optional(),
-        officialEmail: z.string().email().optional(),
-        address: z.string(),
-      }),
-    )
+    .input(personCreateSchema)
     .mutation(async ({ ctx, input }) => {
       return ctx.db.person.create({
         data: {
           firstName: input.firstName,
-          lastName: input.lastName,
-          mononym: input.mononym,
           preferredFirstName: input.preferredFirstName,
+          lastName: input.lastName,
+          gender: input.gender,
           pronouns: input.pronouns,
-          gender: input.gender ?? null,
-          dateOfBirth: input.dateOfBirth ?? null,
+          dateOfBirth: input.dateOfBirth,
           phone: input.phone,
-          personalEmail: input.personalEmail ?? null,
-          universityEmail: input.universityEmail ?? null,
-          officialEmail: input.officialEmail ?? null,
+          personalEmail: input.personalEmail,
+          universityEmail: input.universityEmail,
+          companyEmail: input.companyEmail,
           address: input.address,
         },
       });
