@@ -83,6 +83,7 @@ export function AddPerson() {
     if (open === false) form.reset();
   }, [form, open]);
 
+  const utils = api.useUtils();
   const mutation = api.person.create.useMutation({
     onError: (_, input) => {
       toast.error(
@@ -90,6 +91,7 @@ export function AddPerson() {
       );
     },
     onSuccess(data) {
+      void utils.person.all.invalidate();
       setOpen(false);
       toast.success(
         `Successfully added ${data.preferredFirstName ?? data.firstName}.`,
