@@ -1,10 +1,10 @@
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  DoubleArrowLeftIcon,
-  DoubleArrowRightIcon,
-} from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
+import {
+  ArrowLeft,
+  ArrowLeftToLine,
+  ArrowRight,
+  ArrowRightToLine,
+} from "lucide-react";
 
 import { Button } from "~/app/_components/ui/button";
 import {
@@ -24,7 +24,7 @@ export function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex items-center justify-between px-2">
-      <div className="text-muted-foreground flex-1 text-sm">
+      <div className="flex-1 text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
@@ -61,7 +61,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to first page</span>
-            <DoubleArrowLeftIcon className="h-4 w-4" />
+            <ArrowLeftToLine className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
@@ -70,7 +70,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to previous page</span>
-            <ChevronLeftIcon className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
@@ -79,7 +79,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to next page</span>
-            <ChevronRightIcon className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
@@ -88,7 +88,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to last page</span>
-            <DoubleArrowRightIcon className="h-4 w-4" />
+            <ArrowRightToLine className="h-4 w-4" />
           </Button>
         </div>
       </div>
