@@ -23,11 +23,12 @@ export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
   return (
-    <div className="flex items-center justify-between px-2">
+    <div className="flex items-center justify-between">
       <div className="flex-1 text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
+
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
@@ -40,6 +41,7 @@ export function DataTablePagination<TData>({
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
+
             <SelectContent side="top">
               {[10, 20, 30, 40, 50].map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
@@ -49,10 +51,12 @@ export function DataTablePagination<TData>({
             </SelectContent>
           </Select>
         </div>
+
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </div>
+
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"
@@ -63,6 +67,7 @@ export function DataTablePagination<TData>({
             <span className="sr-only">Go to first page</span>
             <ArrowLeftToLine className="h-4 w-4" />
           </Button>
+
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
@@ -72,6 +77,7 @@ export function DataTablePagination<TData>({
             <span className="sr-only">Go to previous page</span>
             <ArrowLeft className="h-4 w-4" />
           </Button>
+
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
@@ -81,6 +87,7 @@ export function DataTablePagination<TData>({
             <span className="sr-only">Go to next page</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
+
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"

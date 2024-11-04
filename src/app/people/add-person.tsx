@@ -113,10 +113,10 @@ export function AddPerson() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Person</Button>
+        <Button>Add Person</Button>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[425px]">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[500px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
@@ -133,7 +133,7 @@ export function AddPerson() {
                 name="firstName"
                 render={({ field }) => (
                   <FormItem className="grid grid-cols-4 items-center gap-x-4 gap-y-2 space-y-0">
-                    <FormLabel className="text-right">First Name</FormLabel>
+                    <FormLabel className="text-right">First Name*</FormLabel>
                     <FormControl className="col-span-3">
                       <Input placeholder="Jonathan" {...field} />
                     </FormControl>
@@ -192,7 +192,7 @@ export function AddPerson() {
                   name="lastName"
                   render={({ field: { value, ...field } }) => (
                     <FormItem className="grid grid-cols-4 items-center gap-x-4 gap-y-2 space-y-0">
-                      <FormLabel className="text-right">Last Name</FormLabel>
+                      <FormLabel className="text-right">Last Name*</FormLabel>
                       <FormControl className="col-span-3">
                         <Input
                           placeholder="Smith"
@@ -211,7 +211,7 @@ export function AddPerson() {
                 name="gender"
                 render={({ field }) => (
                   <FormItem className="grid grid-cols-4 items-center gap-x-4 gap-y-2 space-y-0">
-                    <FormLabel className="text-right">Gender</FormLabel>
+                    <FormLabel className="text-right">Gender*</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       value={field.value ?? undefined}
