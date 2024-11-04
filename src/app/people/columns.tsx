@@ -16,6 +16,7 @@ export const columns: ColumnDef<RouterOutputs["person"]["all"][number]>[] = [
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        className="h-[18px] w-[18px]"
       />
     ),
     cell: ({ row }) => (
@@ -23,6 +24,7 @@ export const columns: ColumnDef<RouterOutputs["person"]["all"][number]>[] = [
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
+        className="h-[18px] w-[18px]"
       />
     ),
     enableSorting: false,
