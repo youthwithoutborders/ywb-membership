@@ -30,74 +30,93 @@ export const columns: ColumnDef<RouterOutputs["person"]["all"][number]>[] = [
   },
   {
     accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ID" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "ID",
+    },
   },
   {
     accessorKey: "firstName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="First Name" />
-    ),
-  },
-  {
-    accessorKey: "lastName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Last Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "First Name",
+    },
   },
   {
     accessorKey: "preferredFirstName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Preferred First Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Preferred First Name",
+    },
   },
   {
-    accessorKey: "pronouns",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Pronouns" />
-    ),
+    accessorKey: "lastName",
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Last Name",
+    },
   },
   {
     accessorKey: "gender",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Gender" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    cell: (a) =>
+      ({
+        MALE: "Male",
+        FEMALE: "Female",
+        GENDER_DIVERSE: "Gender Diverse",
+        PREFER_NOT_TO_SAY: "Prefer not to say",
+      })[a.getValue() as string] ?? "Unknown",
+    meta: {
+      title: "Gender",
+    },
+  },
+  {
+    accessorKey: "pronouns",
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Pronouns",
+    },
   },
   {
     accessorKey: "dateOfBirth",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Date of Birth" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Date of Birth",
+    },
   },
   {
     accessorKey: "phone",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Phone",
+    },
   },
   {
     accessorKey: "personalEmail",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Personal Email" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Personal Email",
+    },
   },
   {
     accessorKey: "universityEmail",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="University Email" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "University Email",
+    },
   },
   {
     accessorKey: "companyEmail",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Company Email" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Company Email",
+    },
   },
   {
     accessorKey: "address",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Address" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} />,
+    meta: {
+      title: "Address",
+    },
   },
 ];
