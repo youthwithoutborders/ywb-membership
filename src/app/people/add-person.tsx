@@ -38,6 +38,8 @@ import { api } from "~/trpc/react";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const formSchema = personCreateSchema
   .extend({
@@ -76,10 +78,30 @@ export function AddPerson() {
     },
   });
 
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (open === false) form.reset();
+  }, [form, open]);
+
   const mutation = api.person.create.useMutation({
     onError: (_, input) => {
       toast.error(
         `An error occurred while adding ${input.preferredFirstName ?? input.firstName}.`,
+      );
+    },
+    onSuccess(data) {
+      setOpen(false);
+      toast.success(
+        `Successfully added ${data.preferredFirstName ?? data.firstName}.`,
+        {
+          action: (
+            <Button variant="link" asChild>
+              <Link href={`/people/${data.id}`} className="ms-auto">
+                View person
+              </Link>
+            </Button>
+          ),
+        },
       );
     },
   });
@@ -89,7 +111,7 @@ export function AddPerson() {
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">Add Person</Button>
       </DialogTrigger>
