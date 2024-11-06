@@ -24,8 +24,10 @@ import {
 import { DataTablePagination } from "../_components/data-table-pagination";
 import { DataTableViewOptions } from "../_components/data-table-view-options";
 import { useState } from "react";
-import { Input } from "../_components/ui/input";
+import { Input } from "~/app/_components/ui/input";
 import { AddPerson } from "./add-person";
+import { Button } from "~/app/_components/ui/button";
+import { api } from "~/trpc/react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -60,6 +62,8 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const emailQuery = api.gmail.labels.useQuery();
+
   return (
     <div className="flex w-full flex-grow flex-col overflow-y-hidden">
       <div className="flex items-center gap-4 py-4">
@@ -73,6 +77,8 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+
+        <Button variant="outline">View person</Button>
 
         <DataTableViewOptions table={table} />
 

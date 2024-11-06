@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
-import { auth } from "~/server/auth";
+import { auth, signIn } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 
 import "~/app/_styles/globals.css";
@@ -9,6 +9,9 @@ import "~/app/_styles/globals.css";
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
   const session = await auth();
+  if (session?.error === "RefreshTokenError") {
+    await signIn("google"); // Force sign in to obtain a new set of access and refresh tokens
+  }
 
   if (session?.user) {
     void api.post.getLatest.prefetch();
