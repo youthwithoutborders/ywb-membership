@@ -1,8 +1,9 @@
 import * as React from "react";
+
 import { Button } from "~/app/_components/ui/button";
+import { Input } from "~/app/_components/ui/input";
 import { Label } from "~/app/_components/ui/label";
 import { Switch } from "~/app/_components/ui/switch";
-import { Input } from "~/app/_components/ui/input";
 import { cn } from "~/app/_lib/utils";
 
 export interface LinkEditorProps extends React.HTMLAttributes<HTMLDivElement> {

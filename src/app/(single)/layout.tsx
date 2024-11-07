@@ -1,4 +1,7 @@
+import { Suspense } from "react";
 import Image from "next/image";
+
+import Loading from "./loading";
 
 export default function SingleLayout({
   children,
@@ -19,7 +22,7 @@ export default function SingleLayout({
 
       <div className="lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-80">
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
       </div>
     </div>

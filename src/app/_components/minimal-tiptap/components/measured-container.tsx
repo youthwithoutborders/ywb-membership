@@ -1,4 +1,7 @@
 import * as React from "react";
+
+
+
 import { useContainerSize } from "../hooks/use-container-size";
 
 interface MeasuredContainerProps<T extends React.ElementType> {
@@ -29,7 +32,11 @@ export const MeasuredContainer = React.forwardRef(
     };
 
     return (
-      <Component {...props} ref={innerRef} style={{ ...customStyle, ...style }}>
+      <Component
+        {...props}
+        ref={innerRef}
+        style={{ ...customStyle, ...(style as React.CSSProperties) }}
+      >
         {children}
       </Component>
     );

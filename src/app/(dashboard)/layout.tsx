@@ -1,7 +1,8 @@
 import { type Metadata } from "next";
-import { SidebarProvider } from "~/app/_components/ui/sidebar";
-import { AppSidebar } from "~/app/_components/sidebar/app-sidebar";
 import { cookies } from "next/headers";
+
+import { AppSidebar } from "~/app/_components/sidebar/app-sidebar";
+import { SidebarProvider } from "~/app/_components/ui/sidebar";
 import { protectedRoute } from "~/server/auth/guards";
 
 export const metadata: Metadata = {

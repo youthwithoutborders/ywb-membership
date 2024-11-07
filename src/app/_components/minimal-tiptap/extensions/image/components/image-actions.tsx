@@ -1,10 +1,12 @@
 import * as React from "react";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "~/app/_components/ui/tooltip";
-import { cn } from "~/app/_lib/utils";
+  ClipboardCopy,
+  Download,
+  Ellipsis,
+  Link2,
+  Maximize2,
+} from "lucide-react";
+
 import { Button } from "~/app/_components/ui/button";
 import {
   DropdownMenu,
@@ -12,7 +14,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/app/_components/ui/dropdown-menu";
-import { ClipboardCopy, Download, Link2, Maximize2 } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/app/_components/ui/tooltip";
+import { cn } from "~/app/_lib/utils";
 
 interface ImageActionsProps {
   shouldMerge?: boolean;
@@ -130,7 +137,7 @@ export const ImageActions: React.FC<ImageActionsProps> = React.memo(
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <ActionButton
-                icon={<DotsHorizontalIcon className="size-4" />}
+                icon={<Ellipsis className="size-4" />}
                 tooltip="Open menu"
                 onClick={(e) => e.preventDefault()}
               />

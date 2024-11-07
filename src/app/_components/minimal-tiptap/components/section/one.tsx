@@ -1,8 +1,10 @@
-import * as React from "react";
-import type { Editor } from "@tiptap/react";
 import type { Level } from "@tiptap/extension-heading";
-import type { FormatAction } from "../../types";
+import type { Editor } from "@tiptap/react";
 import type { VariantProps } from "class-variance-authority";
+import * as React from "react";
+import { CaseSensitive, ChevronDown } from "lucide-react";
+
+import type { FormatAction } from "../../types";
 import type { toggleVariants } from "~/app/_components/ui/toggle";
 import {
   DropdownMenu,
@@ -10,10 +12,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/app/_components/ui/dropdown-menu";
-import { ToolbarButton } from "../toolbar-button";
-import { ShortcutKey } from "../shortcut-key";
 import { cn } from "~/app/_lib/utils";
-import { CaseSensitive, ChevronDown } from "lucide-react";
+import { ShortcutKey } from "../shortcut-key";
+import { ToolbarButton } from "../toolbar-button";
 
 interface TextStyle
   extends Omit<

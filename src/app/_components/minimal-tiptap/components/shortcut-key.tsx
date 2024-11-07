@@ -1,6 +1,7 @@
 import * as React from "react";
-import { getShortcutKey } from "../utils";
+
 import { cn } from "~/app/_lib/utils";
+import { getShortcutKey } from "../utils";
 
 export interface ShortcutKeyProps
   extends React.HTMLAttributes<HTMLSpanElement> {

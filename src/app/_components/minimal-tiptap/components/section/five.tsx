@@ -1,12 +1,13 @@
-import * as React from "react";
 import type { Editor } from "@tiptap/react";
+import type { VariantProps } from "class-variance-authority";
+import * as React from "react";
+import { ChevronDown, Code, Minus, Plus, Quote } from "lucide-react";
+
 import type { FormatAction } from "../../types";
 import type { toggleVariants } from "~/app/_components/ui/toggle";
-import type { VariantProps } from "class-variance-authority";
-import { LinkEditPopover } from "../link/link-edit-popover";
 import { ImageEditDialog } from "../image/image-edit-dialog";
+import { LinkEditPopover } from "../link/link-edit-popover";
 import { ToolbarSection } from "../toolbar-section";
-import { ChevronDown, Code, Minus, Plus, Quote } from "lucide-react";
 
 type InsertElementAction = "codeBlock" | "blockquote" | "horizontalRule";
 interface InsertElement extends FormatAction {

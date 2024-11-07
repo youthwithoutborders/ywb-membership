@@ -1,12 +1,13 @@
-import * as React from "react";
 import type { Editor } from "@tiptap/react";
-import type { toggleVariants } from "~/app/_components/ui/toggle";
 import type { VariantProps } from "class-variance-authority";
-import { ToolbarButton } from "../toolbar-button";
+import * as React from "react";
+import { Check, ChevronDown } from "lucide-react";
+
+import type { toggleVariants } from "~/app/_components/ui/toggle";
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
+  PopoverTrigger,
 } from "~/app/_components/ui/popover";
 import {
   ToggleGroup,
@@ -18,7 +19,7 @@ import {
   TooltipTrigger,
 } from "~/app/_components/ui/tooltip";
 import { useTheme } from "../../hooks/use-theme";
-import { Check, ChevronDown } from "lucide-react";
+import { ToolbarButton } from "../toolbar-button";
 
 interface ColorItem {
   cssVar: string;
@@ -152,7 +153,8 @@ export const SectionThree: React.FC<SectionThreeProps> = ({
   variant,
 }) => {
   const color =
-    editor.getAttributes("textStyle")?.color || "hsl(var(--foreground))";
+    (editor.getAttributes("textStyle")?.color as string) ||
+    "hsl(var(--foreground))";
   const [selectedColor, setSelectedColor] = React.useState(color);
 
   const handleColorChange = React.useCallback(

@@ -1,7 +1,9 @@
-import * as React from "react";
 import type { Editor } from "@tiptap/react";
-import type { FormatAction } from "../types";
 import type { VariantProps } from "class-variance-authority";
+import * as React from "react";
+import { ChevronDown } from "lucide-react";
+
+import type { FormatAction } from "../types";
 import type { toggleVariants } from "~/app/_components/ui/toggle";
 import {
   DropdownMenu,
@@ -9,11 +11,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/app/_components/ui/dropdown-menu";
-import { ToolbarButton } from "./toolbar-button";
-import { ShortcutKey } from "./shortcut-key";
-import { getShortcutKey } from "../utils";
 import { cn } from "~/app/_lib/utils";
-import { ChevronDown } from "lucide-react";
+import { getShortcutKey } from "../utils";
+import { ShortcutKey } from "./shortcut-key";
+import { ToolbarButton } from "./toolbar-button";
 
 interface ToolbarSectionProps extends VariantProps<typeof toggleVariants> {
   editor: Editor;

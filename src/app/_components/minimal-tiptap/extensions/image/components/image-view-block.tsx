@@ -1,17 +1,19 @@
+import type { Editor, NodeViewProps } from "@tiptap/react";
 import * as React from "react";
-import { NodeViewWrapper, type NodeViewProps } from "@tiptap/react";
-import type { ElementDimensions } from "../hooks/use-drag-resize";
-import { useDragResize } from "../hooks/use-drag-resize";
-import { ResizeHandle } from "./resize-handle";
+import { NodeViewWrapper } from "@tiptap/react";
+import { Info, Trash2 } from "lucide-react";
 import { Controlled as ControlledZoom } from "react-medium-image-zoom";
-import { ActionButton, ActionWrapper, ImageActions } from "./image-actions";
-import { useImageActions } from "../hooks/use-image-actions";
-import { blobUrlToBase64, randomId } from "../../../utils";
-import { ImageOverlay } from "./image-overlay";
-import { Spinner } from "../../../components/spinner";
+
+import type { ElementDimensions } from "../hooks/use-drag-resize";
 import type { UploadReturnType } from "../image";
 import { cn } from "~/app/_lib/utils";
-import { Info, Trash2 } from "lucide-react";
+import { Spinner } from "../../../components/spinner";
+import { blobUrlToBase64, randomId } from "../../../utils";
+import { useDragResize } from "../hooks/use-drag-resize";
+import { useImageActions } from "../hooks/use-image-actions";
+import { ActionButton, ActionWrapper, ImageActions } from "./image-actions";
+import { ImageOverlay } from "./image-overlay";
+import { ResizeHandle } from "./resize-handle";
 
 const MAX_HEIGHT = 600;
 const MIN_HEIGHT = 120;
@@ -37,20 +39,18 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
   selected,
   updateAttributes,
 }) => {
-  const {
-    src: initialSrc,
-    width: initialWidth,
-    height: initialHeight,
-    fileName,
-    fileType,
-  } = node.attrs;
+  const { src: initialSrc } = node.attrs;
+  const initialWidth = node.attrs.width as number;
+  const initialHeight = node.attrs.height as number;
+  const fileName = node.attrs.fileName as string | undefined;
+  const fileType = node.attrs.fileType as string | undefined;
 
   const initSrc = React.useMemo(() => {
     if (typeof initialSrc === "string") {
       return initialSrc;
     }
 
-    return initialSrc.src;
+    return (initialSrc as { src: string }).src;
   }, [initialSrc]);
 
   const [imageState, setImageState] = React.useState<ImageState>({
@@ -171,7 +171,17 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
       const imageExtension = editor.options.extensions.find(
         (ext) => ext.name === "image",
       );
-      const { uploadFn } = imageExtension?.options ?? {};
+      const { uploadFn } =
+        (
+          imageExtension as {
+            options: {
+              uploadFn?: (
+                file: File,
+                editor: Editor,
+              ) => Promise<UploadReturnType>;
+            };
+          }
+        )?.options ?? {};
 
       if (initSrc.startsWith("blob:")) {
         if (!uploadFn) {
@@ -193,7 +203,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
               type: fileType || blob.type,
             });
 
-            const url: UploadReturnType = await uploadFn(file, editor);
+            const url = await uploadFn(file, editor);
             const normalizedData = normalizeUploadResponse(url);
 
             setImageState((prev) => ({
@@ -214,7 +224,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
       }
     };
 
-    handleImage();
+    void handleImage();
   }, [editor, fileName, fileType, initSrc, updateAttributes]);
 
   return (
@@ -282,7 +292,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
                   src={imageState.src}
                   onError={handleImageError}
                   onLoad={handleImageLoad}
-                  alt={node.attrs.alt || ""}
+                  alt={(node.attrs.alt as string | undefined) || ""}
                 />
               </ControlledZoom>
             </div>

@@ -1,5 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Home, Users } from "lucide-react";
+import { type Session } from "next-auth";
+
 import {
   Sidebar,
   SidebarContent,
@@ -11,12 +17,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/app/_components/ui/sidebar";
-import { Home, Users } from "lucide-react";
-import Link from "next/link";
 import { SidebarUser } from "./sidebar-user";
-import { type Session } from "next-auth";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
 
 const items = [
   {

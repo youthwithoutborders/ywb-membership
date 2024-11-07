@@ -1,3 +1,12 @@
+import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { type Content } from "@tiptap/react";
+import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { type z } from "zod";
+
+import { MinimalTiptapEditor } from "~/app/_components/minimal-tiptap";
 import { Button } from "~/app/_components/ui/button";
 import {
   Dialog,
@@ -7,9 +16,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/app/_components/ui/dialog";
-import { Input } from "~/app/_components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -18,14 +24,9 @@ import {
   FormLabel,
   FormMessage,
 } from "~/app/_components/ui/form";
+import { Input } from "~/app/_components/ui/input";
 import { api } from "~/trpc/react";
-import { type z } from "zod";
-import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
-import { useEffect, useState } from "react";
 import { gmailDraftSchema } from "~/validators/gmail";
-import { MinimalTiptapEditor } from "~/app/_components/minimal-tiptap";
-import { type Content } from "@tiptap/react";
 
 interface SendEmailProps {
   open: boolean;

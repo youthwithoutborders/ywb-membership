@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+
 import { Button } from "~/app/_components/ui/button";
 import { signOut } from "~/server/auth";
 import { protectedRoute } from "~/server/auth/guards";

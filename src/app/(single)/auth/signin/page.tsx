@@ -1,10 +1,12 @@
+import type { IconType } from "@icons-pack/react-simple-icons";
 import { type Metadata } from "next";
-import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
+import { SiGoogle } from "@icons-pack/react-simple-icons";
+import { AuthError } from "next-auth";
+
 import { Button } from "~/app/_components/ui/button";
 import { signIn } from "~/server/auth";
 import { providerMap } from "~/server/auth/config";
-import { type IconType, SiGoogle } from "@icons-pack/react-simple-icons";
 import { unauthenticatedRoute } from "~/server/auth/guards";
 
 export const metadata: Metadata = {
@@ -18,7 +20,7 @@ const icons: Record<string, IconType> = {
 export default async function SignInPage({
   searchParams,
 }: {
-  searchParams: { callbackUrl: string | undefined };
+  searchParams: Promise<{ callbackUrl: string | undefined }>;
 }) {
   await unauthenticatedRoute();
 
@@ -41,7 +43,6 @@ export default async function SignInPage({
               "use server";
               try {
                 await signIn(provider.id, {
-                  // eslint-disable-next-line @typescript-eslint/await-thenable
                   redirectTo: (await searchParams)?.callbackUrl ?? "/",
                 });
               } catch (error) {

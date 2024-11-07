@@ -1,7 +1,8 @@
-import * as React from "react";
-import type { ShouldShowProps } from "../../types";
 import type { Editor } from "@tiptap/react";
+import * as React from "react";
 import { BubbleMenu } from "@tiptap/react";
+
+import type { ShouldShowProps } from "../../types";
 import { LinkEditBlock } from "../link/link-edit-block";
 import { LinkPopoverBlock } from "../link/link-popover-block";
 
@@ -24,7 +25,10 @@ export const LinkBubbleMenu: React.FC<LinkBubbleMenuProps> = ({ editor }) => {
 
   const updateLinkState = React.useCallback(() => {
     const { from, to } = editor.state.selection;
-    const { href, target } = editor.getAttributes("link");
+    const attrs = editor.getAttributes("link");
+    const href = attrs.href as string;
+    const target = attrs.target as string;
+
     const text = editor.state.doc.textBetween(from, to, " ");
 
     setLinkAttrs({ href, target });

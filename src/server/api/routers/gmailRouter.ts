@@ -1,7 +1,9 @@
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { type gmail_v1, google } from "googleapis";
-import { env } from "~/env";
+import type { gmail_v1 } from "googleapis";
 import { TRPCError } from "@trpc/server";
+import { google } from "googleapis";
+
+import { env } from "~/env";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { gmailDraftSchema } from "~/validators/gmail";
 
 export const gmailRouter = createTRPCRouter({

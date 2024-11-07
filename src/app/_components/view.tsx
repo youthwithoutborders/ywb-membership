@@ -1,4 +1,6 @@
-import { SidebarInset, SidebarTrigger } from "./ui/sidebar";
+import { Fragment } from "react";
+
+import { cn } from "../_lib/utils";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,8 +10,7 @@ import {
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 import { Separator } from "./ui/separator";
-import { Fragment } from "react";
-import { cn } from "../_lib/utils";
+import { SidebarInset, SidebarTrigger } from "./ui/sidebar";
 
 interface ViewProps {
   children: React.ReactNode;

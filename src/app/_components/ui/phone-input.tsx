@@ -1,11 +1,9 @@
-import { CheckIcon, ChevronsUpDown } from "lucide-react";
-
 import * as React from "react";
-
+import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as RPNInput from "react-phone-number-input";
-
 import flags from "react-phone-number-input/flags";
 
+import type { InputProps } from "~/app/_components/ui/input";
 import { Button } from "~/app/_components/ui/button";
 import {
   Command,
@@ -15,13 +13,12 @@ import {
   CommandItem,
   CommandList,
 } from "~/app/_components/ui/command";
-import { Input, type InputProps } from "~/app/_components/ui/input";
+import { Input } from "~/app/_components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/app/_components/ui/popover";
-
 import { cn } from "~/app/_lib/utils";
 import { ScrollArea } from "./scroll-area";
 
@@ -59,7 +56,6 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
            *
            * @param {E164Number | undefined} value - The entered value
            */
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
           onChange={(value) => onChange?.(value || ("" as RPNInput.Value))}
           {...props}
         />

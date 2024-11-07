@@ -1,9 +1,10 @@
 "use client";
 
 import { type ColumnDef } from "@tanstack/react-table";
-import { type RouterOutputs } from "~/trpc/react";
+
 import { DataTableColumnHeader } from "~/app/_components/data-table-column-header";
 import { Checkbox } from "~/app/_components/ui/checkbox";
+import { type RouterOutputs } from "~/trpc/react";
 
 export const columns: ColumnDef<RouterOutputs["person"]["all"][number]>[] = [
   {

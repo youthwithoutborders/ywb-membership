@@ -1,27 +1,27 @@
+import type { Content, Editor, UseEditorOptions } from "@tiptap/react";
 import * as React from "react";
-import type { Editor } from "@tiptap/react";
-import type { Content, UseEditorOptions } from "@tiptap/react";
-import { StarterKit } from "@tiptap/starter-kit";
-import { useEditor } from "@tiptap/react";
-import { Typography } from "@tiptap/extension-typography";
 import { Placeholder } from "@tiptap/extension-placeholder";
-import { Underline } from "@tiptap/extension-underline";
 import { TextStyle } from "@tiptap/extension-text-style";
-import {
-  Link,
-  Image,
-  HorizontalRule,
-  CodeBlockLowlight,
-  Selection,
-  Color,
-  UnsetAllMarks,
-  ResetMarksOnEnter,
-  FileHandler,
-} from "../extensions";
-import { fileToBase64, getOutput, randomId } from "../utils";
-import { useThrottle } from "../hooks/use-throttle";
+import { Typography } from "@tiptap/extension-typography";
+import { Underline } from "@tiptap/extension-underline";
+import { useEditor } from "@tiptap/react";
+import { StarterKit } from "@tiptap/starter-kit";
 import { toast } from "sonner";
+
 import { cn } from "~/app/_lib/utils";
+import {
+  CodeBlockLowlight,
+  Color,
+  FileHandler,
+  HorizontalRule,
+  Image,
+  Link,
+  ResetMarksOnEnter,
+  Selection,
+  UnsetAllMarks,
+} from "../extensions";
+import { useThrottle } from "../hooks/use-throttle";
+import { fileToBase64, getOutput, randomId } from "../utils";
 
 export interface UseMinimalTiptapEditorProps extends UseEditorOptions {
   value?: Content;
@@ -103,20 +103,22 @@ const createExtensions = (placeholder: string) => [
     allowedMimeTypes: ["image/*"],
     maxFileSize: 5 * 1024 * 1024,
     onDrop: (editor, files, pos) => {
-      files.forEach(async (file) => {
-        const src = await fileToBase64(file);
-        editor.commands.insertContentAt(pos, {
-          type: "image",
-          attrs: { src },
+      files.forEach((file) => {
+        void fileToBase64(file).then((src) => {
+          editor.commands.insertContentAt(pos, {
+            type: "image",
+            attrs: { src },
+          });
         });
       });
     },
     onPaste: (editor, files) => {
-      files.forEach(async (file) => {
-        const src = await fileToBase64(file);
-        editor.commands.insertContent({
-          type: "image",
-          attrs: { src },
+      files.forEach((file) => {
+        void fileToBase64(file).then((src) => {
+          editor.commands.insertContent({
+            type: "image",
+            attrs: { src },
+          });
         });
       });
     },

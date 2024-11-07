@@ -1,3 +1,12 @@
+import Link from "next/link";
+import { ChevronsUpDown, LogOut } from "lucide-react";
+import { type Session } from "next-auth";
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "~/app/_components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,20 +16,12 @@ import {
   DropdownMenuTrigger,
 } from "~/app/_components/ui/dropdown-menu";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "~/app/_components/ui/avatar";
-import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
 } from "~/app/_components/ui/sidebar";
-import { ChevronsUpDown, LogOut } from "lucide-react";
-import { type Session } from "next-auth";
-import Link from "next/link";
 
 interface SidebarUserProps {
   user: Session["user"];

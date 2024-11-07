@@ -1,6 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+
 import { Button } from "~/app/_components/ui/button";
+import { Checkbox } from "~/app/_components/ui/checkbox";
+import { Combobox } from "~/app/_components/ui/combobox";
+import { DatePicker } from "~/app/_components/ui/date-picker";
 import {
   Dialog,
   DialogContent,
@@ -10,10 +21,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/app/_components/ui/dialog";
-import { Input } from "~/app/_components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { personCreateSchema } from "~/validators/person";
 import {
   Form,
   FormControl,
@@ -23,8 +30,8 @@ import {
   FormLabel,
   FormMessage,
 } from "~/app/_components/ui/form";
-import { Checkbox } from "~/app/_components/ui/checkbox";
-import { Combobox } from "~/app/_components/ui/combobox";
+import { Input } from "~/app/_components/ui/input";
+import { PhoneInput } from "~/app/_components/ui/phone-input";
 import {
   Select,
   SelectContent,
@@ -32,14 +39,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/app/_components/ui/select";
-import { DatePicker } from "~/app/_components/ui/date-picker";
-import { PhoneInput } from "~/app/_components/ui/phone-input";
 import { api } from "~/trpc/react";
-import { z } from "zod";
-import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { personCreateSchema } from "~/validators/person";
 
 const formSchema = personCreateSchema
   .extend({

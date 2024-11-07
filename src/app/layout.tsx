@@ -1,10 +1,10 @@
 import "~/app/_styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
 
-import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "~/app/_components/ui/sonner";
+import { TRPCReactProvider } from "~/trpc/react";
 import { TooltipProvider } from "./_components/ui/tooltip";
 
 export const metadata: Metadata = {

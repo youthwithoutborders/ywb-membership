@@ -1,4 +1,3 @@
-import { people } from "googleapis/build/src/apis/people";
 import { z } from "zod";
 
 export const gmailDraftSchema = z.object({

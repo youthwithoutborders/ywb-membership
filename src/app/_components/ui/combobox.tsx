@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-import { useMediaQuery } from "~/app/_hooks/use-media-query";
 import { Button } from "~/app/_components/ui/button";
 import {
   Command,
@@ -22,6 +21,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/app/_components/ui/popover";
+import { useMediaQuery } from "~/app/_hooks/use-media-query";
 
 interface ComboboxProps {
   value: string | null;
