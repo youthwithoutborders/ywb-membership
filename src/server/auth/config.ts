@@ -43,7 +43,7 @@ export const authConfig = {
           prompt: "consent",
           response_type: "code",
           scope:
-            "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly",
+            "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.compose",
         },
       },
     }),
@@ -97,7 +97,7 @@ export const authConfig = {
             },
           });
         } catch (error) {
-          console.error("Error refreshing access_token", error);
+          console.error("Error refreshing access_token", JSON.stringify(error));
           // If we fail to refresh the token, return an error so we can handle it on the page
           session.error = "RefreshTokenError";
         }

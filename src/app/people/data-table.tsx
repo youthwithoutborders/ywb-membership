@@ -8,6 +8,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  type RowSelectionState,
   type SortingState,
   useReactTable,
   type VisibilityState,
@@ -27,7 +28,7 @@ import { useState } from "react";
 import { Input } from "~/app/_components/ui/input";
 import { AddPerson } from "./add-person";
 import { Button } from "~/app/_components/ui/button";
-import { api } from "~/trpc/react";
+import { SelectedActions } from "./selected-actions";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -41,7 +42,7 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
     data,
@@ -62,7 +63,8 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  const emailQuery = api.gmail.labels.useQuery();
+  // Get row selection state
+  const selectedRows = table.getFilteredSelectedRowModel().rows;
 
   return (
     <div className="flex w-full flex-grow flex-col overflow-y-hidden">
@@ -78,7 +80,9 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
 
-        <Button variant="outline">View person</Button>
+        <div className="flex-grow" />
+
+        <SelectedActions />
 
         <DataTableViewOptions table={table} />
 
