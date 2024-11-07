@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import { type Session } from "next-auth";
 
 import {
@@ -20,11 +20,6 @@ import {
 import { SidebarUser } from "./sidebar-user";
 
 const items = [
-  {
-    title: "Welcome",
-    url: "/",
-    icon: Home,
-  },
   {
     title: "People",
     url: "/people",
@@ -44,21 +39,22 @@ export function AppSidebar({ user }: AppSidebarProps) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex h-12 w-full items-center gap-2 overflow-hidden p-2 text-left text-sm outline-none group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0">
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Image
-                  priority
-                  src="/images/logo-on-blue.svg"
-                  height={24}
-                  width={24}
-                  alt="Youth Without Borders"
-                />
-              </div>
-
-              <div className="">
-                <span className="font-semibold">YWB Membership</span>
-              </div>
-            </div>
+            <SidebarMenuButton size="lg" asChild isActive={path === "/"}>
+              <Link href="/">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                  <Image
+                    priority
+                    src="/images/logo-on-blue.svg"
+                    height={24}
+                    width={24}
+                    alt="Youth Without Borders"
+                  />
+                </div>
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">YWB Membership</span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

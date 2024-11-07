@@ -23,7 +23,7 @@ export function SelectedActions() {
             Actions <ChevronDown />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
+        <DropdownMenuContent className="w-56" align="end">
           <DropdownMenuItem onClick={() => setEmailOpen(true)}>
             <Mail /> Send Email
           </DropdownMenuItem>
