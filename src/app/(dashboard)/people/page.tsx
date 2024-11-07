@@ -1,8 +1,14 @@
+import { type Metadata } from "next";
+
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import { View } from "../../_components/view";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
+
+export const metadata: Metadata = {
+  title: "People - YWB Membership",
+};
 
 export default async function PeoplePage() {
   const people = await api.person.all();

@@ -1,7 +1,10 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+
+
 import { auth } from "~/server/auth";
+
 
 /**
  * Redirects the user to the sign-in page if they are not authenticated.
@@ -10,8 +13,12 @@ import { auth } from "~/server/auth";
 export async function protectedRoute() {
   const session = await auth();
   if (!session) {
-    const path = (await headers()).get("x-current-path")!;
-    redirect(`/auth/signin?callbackUrl=${encodeURIComponent(path)}`);
+    const path = (await headers()).get("x-current-path");
+    redirect(
+      path
+        ? `/auth/signin?callbackUrl=${encodeURIComponent(path)}`
+        : "/auth/signin",
+    );
   }
 
   return session;

@@ -1,4 +1,6 @@
 import { type Metadata } from "next";
+import Link from "next/link";
+import { Home } from "lucide-react";
 
 import { Button } from "~/app/_components/ui/button";
 import { signOut } from "~/server/auth";
@@ -32,6 +34,13 @@ export default async function SignOutPage() {
           Sign out
         </Button>
       </form>
+
+      <Button className="w-full" asChild variant="link">
+        <Link href="/">
+          <Home />
+          Return home
+        </Link>
+      </Button>
     </>
   );
 }
