@@ -2,6 +2,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { env } from "~/env";
+import type { Provider } from "next-auth/providers";
 
 import { db } from "~/server/db";
 
@@ -27,29 +28,46 @@ declare module "next-auth" {
   // }
 }
 
+const providers: Provider[] = [
+  GoogleProvider({
+    clientId: env.AUTH_GOOGLE_ID,
+    clientSecret: env.AUTH_GOOGLE_SECRET,
+    authorization: {
+      params: {
+        access_type: "offline",
+        prompt: "consent",
+        response_type: "code",
+        scope:
+          "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly",
+      },
+    },
+  }),
+];
+
+export const providerMap = providers
+  .map((provider) => {
+    if (typeof provider === "function") {
+      const providerData = provider();
+      return { id: providerData.id, name: providerData.name };
+    } else {
+      return { id: provider.id, name: provider.name };
+    }
+  })
+  .filter((provider) => provider.id !== "credentials");
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
-  providers: [
-    GoogleProvider({
-      clientId: env.AUTH_GOOGLE_ID,
-      clientSecret: env.AUTH_GOOGLE_SECRET,
-      authorization: {
-        params: {
-          access_type: "offline",
-          prompt: "consent",
-          response_type: "code",
-          scope:
-            "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.compose",
-        },
-      },
-    }),
-  ],
+  providers,
   trustHost: true,
   adapter: PrismaAdapter(db),
+  pages: {
+    signIn: "/auth/signin",
+    signOut: "/auth/signout",
+  },
   callbacks: {
     session: async ({ session, user }) => {
       const googleAccount = await db.account.findFirst({

@@ -22,8 +22,8 @@ import {
   TableHeader,
   TableRow,
 } from "~/app/_components/ui/table";
-import { DataTablePagination } from "../_components/data-table-pagination";
-import { DataTableViewOptions } from "../_components/data-table-view-options";
+import { DataTablePagination } from "../../_components/data-table-pagination";
+import { DataTableViewOptions } from "../../_components/data-table-view-options";
 import { useState } from "react";
 import { Input } from "~/app/_components/ui/input";
 import { AddPerson } from "./add-person";

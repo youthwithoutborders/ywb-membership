@@ -24,7 +24,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { gmailDraftSchema } from "~/validators/gmail";
-import { MinimalTiptapEditor } from "../_components/minimal-tiptap";
+import { MinimalTiptapEditor } from "~/app/_components/minimal-tiptap";
 import { type Content } from "@tiptap/react";
 
 interface SendEmailProps {
