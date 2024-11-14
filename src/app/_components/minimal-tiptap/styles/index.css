@@ -70,21 +70,6 @@
   --mt-accent-bold-red: #fd9891;
   --mt-accent-bold-purple: #b8acf6;
 
-  --mt-accent-gray: #738496;
-  --mt-accent-blue: #388bff;
-  --mt-accent-teal: #42b2d7;
-  --mt-accent-green: #2abb7f;
-  --mt-accent-orange: #a54800;
-  --mt-accent-red: #e2483d;
-  --mt-accent-purple: #8f7ee7;
-
-  --mt-accent-blue-subtler: #09326c;
-  --mt-accent-teal-subtler: #164555;
-  --mt-accent-green-subtler: #164b35;
-  --mt-accent-yellow-subtler: #533f04;
-  --mt-accent-red-subtler: #5d1f1a;
-  --mt-accent-purple-subtler: #352c63;
-
   --hljs-string: #da936b;
   --hljs-title: #f1d59d;
   --hljs-comment: #aaaaaa;
@@ -99,6 +84,7 @@
 .minimal-tiptap-editor .ProseMirror {
   @apply flex max-w-full cursor-text flex-col;
   @apply z-0 outline-0;
+  @apply flex-grow;
 }
 
 .minimal-tiptap-editor .ProseMirror > div.editor {

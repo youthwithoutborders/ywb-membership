@@ -246,7 +246,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
           className={cn(
             "relative flex h-full cursor-default flex-col items-center gap-2 rounded",
             {
-              "outline outline-2 outline-offset-1 outline-primary":
+              "outline-none ring-2 ring-ring ring-offset-2":
                 selected || isResizing,
             },
           )}

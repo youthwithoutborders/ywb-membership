@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type Content } from "@tiptap/react";
+import { type HTMLContent } from "@tiptap/react";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -25,24 +25,33 @@ import {
   FormMessage,
 } from "~/app/_components/ui/form";
 import { Input } from "~/app/_components/ui/input";
+import MultipleSelector from "~/app/_components/ui/multiple-selector";
+import { Skeleton } from "~/app/_components/ui/skeleton";
+import { getPreferredFullName } from "~/app/_lib/people";
 import { api } from "~/trpc/react";
 import { gmailDraftSchema } from "~/validators/gmail";
 
 interface SendEmailProps {
+  selectedPeople: number[];
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-export function SendEmail({ open, setOpen }: SendEmailProps) {
+export function SendEmail({ selectedPeople, open, setOpen }: SendEmailProps) {
+  const people = api.person.all.useQuery();
+
   const form = useForm<z.infer<typeof gmailDraftSchema>>({
     resolver: zodResolver(gmailDraftSchema),
     defaultValues: {
+      people: [],
       subject: "",
       body: "",
     },
   });
 
-  const [body, setBody] = useState<Content>([]);
+  useEffect(() => {
+    form.setValue("people", selectedPeople);
+  }, [form, selectedPeople]);
 
   useEffect(() => {
     if (open === false) form.reset();
@@ -50,10 +59,10 @@ export function SendEmail({ open, setOpen }: SendEmailProps) {
 
   const utils = api.useUtils();
   const mutation = api.gmail.createDraft.useMutation({
-    onError: (_, input) => {
+    onError: () => {
       toast.error("An error occurred while sending the email.");
     },
-    onSuccess(data) {
+    onSuccess() {
       void utils.person.all.invalidate();
       setOpen(false);
       toast.success("Successfully sent the email.");
@@ -66,7 +75,7 @@ export function SendEmail({ open, setOpen }: SendEmailProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[500px]">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[750px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
@@ -83,9 +92,38 @@ export function SendEmail({ open, setOpen }: SendEmailProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>People</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
+
+                    {people.isPending && <Skeleton className="h-10" />}
+
+                    {people.isSuccess && (
+                      <FormControl>
+                        <MultipleSelector
+                          loadingIndicator
+                          value={field.value.map((v) => ({
+                            label: getPreferredFullName(
+                              people.data.find((person) => person.id === v)!,
+                            ),
+                            value: v.toString(),
+                          }))}
+                          onChange={(value) =>
+                            form.setValue(
+                              "people",
+                              value.map((v) => parseInt(v.value, 10)),
+                            )
+                          }
+                          defaultOptions={people.data.map((person) => ({
+                            label: getPreferredFullName(person),
+                            value: person.id.toString(),
+                          }))}
+                          placeholder="Select people..."
+                          emptyIndicator={
+                            <p className="py-6 text-center text-sm">
+                              No people found.
+                            </p>
+                          }
+                        />
+                      </FormControl>
+                    )}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -105,31 +143,41 @@ export function SendEmail({ open, setOpen }: SendEmailProps) {
                 )}
               />
 
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="body"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Body</FormLabel>
+                    <FormLabel>Message</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <MinimalTiptapEditor
+                        value={field.value}
+                        onChange={(value) =>
+                          form.setValue("body", value as HTMLContent)
+                        }
+                        className="w-full"
+                        editorContentClassName="p-2"
+                        output="html"
+                        placeholder="Enter message..."
+                        autofocus={true}
+                        editable={true}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
 
-              <MinimalTiptapEditor
+              {/* <MinimalTiptapEditor
                 value={body}
                 onChange={setBody}
                 className="w-full"
-                editorContentClassName="p-5"
+                editorContentClassName="p-2"
                 output="html"
-                placeholder="Type your description here..."
+                placeholder="Enter message..."
                 autofocus={true}
                 editable={true}
-                editorClassName="focus:outline-none"
-              />
+              /> */}
             </div>
 
             <DialogFooter>

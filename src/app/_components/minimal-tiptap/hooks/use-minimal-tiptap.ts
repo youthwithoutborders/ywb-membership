@@ -8,20 +8,13 @@ import { useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import { toast } from "sonner";
 
+
+
 import { cn } from "~/app/_lib/utils";
-import {
-  CodeBlockLowlight,
-  Color,
-  FileHandler,
-  HorizontalRule,
-  Image,
-  Link,
-  ResetMarksOnEnter,
-  Selection,
-  UnsetAllMarks,
-} from "../extensions";
+import { CodeBlockLowlight, Color, FileHandler, HorizontalRule, Image, Link, ResetMarksOnEnter, Selection, UnsetAllMarks } from "../extensions";
 import { useThrottle } from "../hooks/use-throttle";
-import { fileToBase64, getOutput, randomId } from "../utils";
+import { fileToBase64, getOutput } from "../utils";
+
 
 export interface UseMinimalTiptapEditorProps extends UseEditorOptions {
   value?: Content;
@@ -51,19 +44,6 @@ const createExtensions = (placeholder: string) => [
     allowedMimeTypes: ["image/*"],
     maxFileSize: 5 * 1024 * 1024,
     allowBase64: true,
-    uploadFn: async (file) => {
-      // NOTE: This is a fake upload function. Replace this with your own upload logic.
-      // This function should return the uploaded image URL.
-
-      // wait 3s to simulate upload
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
-      const src = await fileToBase64(file);
-
-      // either return { id: string | number, src: string } or just src
-      // return src;
-      return { id: randomId(), src };
-    },
     onImageRemoved({ id, src }) {
       console.log("Image removed", { id, src });
     },
@@ -177,6 +157,7 @@ export const useMinimalTiptapEditor = ({
   );
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: createExtensions(placeholder),
     editorProps: {
       attributes: {

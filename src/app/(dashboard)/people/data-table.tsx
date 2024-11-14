@@ -83,18 +83,18 @@ export function DataTable<TData, TValue>({
 
         <div className="flex-grow" />
 
-        <SelectedActions />
+        <SelectedActions selectedRows={selectedRows} />
 
         <DataTableViewOptions table={table} />
 
         <AddPerson />
       </div>
 
-      <div className="flex flex-shrink flex-grow overflow-y-hidden rounded-md border">
+      <div className="flex flex-shrink flex-grow overflow-y-hidden rounded-md border bg-muted/25">
         <Table>
-          <TableHeader className="sticky top-0 border-b bg-background shadow">
+          <TableHeader className="sticky top-0 border-b shadow">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="bg-muted/60 hover:bg-muted/50">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -132,7 +132,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24"
                 >
                   No results.
                 </TableCell>

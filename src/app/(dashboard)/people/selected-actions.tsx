@@ -1,18 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { type Row } from "@tanstack/react-table";
 import { ChevronDown, Mail } from "lucide-react";
 
+
+
 import { Button } from "~/app/_components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/app/_components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/app/_components/ui/dropdown-menu";
+import { type RouterOutputs } from "~/trpc/react";
 import { SendEmail } from "./send-email";
 
-export function SelectedActions() {
+
+interface SelectedActionsProps {
+  selectedRows: Row<unknown>[];
+}
+
+export function SelectedActions({ selectedRows }: SelectedActionsProps) {
   const [emailOpen, setEmailOpen] = useState(false);
 
   return (
@@ -30,7 +34,13 @@ export function SelectedActions() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <SendEmail open={emailOpen} setOpen={setEmailOpen} />
+      <SendEmail
+        selectedPeople={
+          (selectedRows as Row<RouterOutputs["person"]["all"][number]>[]).map(p => p.getValue("id"))
+        }
+        open={emailOpen}
+        setOpen={setEmailOpen}
+      />
     </>
   );
 }

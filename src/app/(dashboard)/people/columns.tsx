@@ -15,6 +15,7 @@ export const columns: ColumnDef<RouterOutputs["person"]["all"][number]>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
+        disabled={table.getRowCount() === 0}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="h-[18px] w-[18px]"
